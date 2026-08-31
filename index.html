@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="format-detection" content="telephone=no, address=no, email=no, date=no">
+<title>Snail Shop Barbearia — Quarteira</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#f4ede3;
+    --black:#0c0a08;
+    --panel:#141110;
+    --panel2:#1a1614;
+    --brown:#a9662f;
+    --brown-light:#c98a4f;
+    --tan:#d9b98c;
+    --text-dim:#b8ada3;
+    --line:rgba(217,185,140,0.18);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    background:var(--black);
+    color:var(--cream);
+    font-family:'Poppins',sans-serif;
+    overflow-x:hidden;
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  .display{font-family:'Anton',sans-serif;letter-spacing:0.5px;}
+  .eyebrow{
+    font-family:'Bebas Neue',sans-serif;
+    letter-spacing:3px;
+    color:var(--brown-light);
+    font-size:15px;
+    text-transform:uppercase;
+  }
+  .wrap{max-width:1240px;margin:0 auto;padding:0 40px;}
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:16px 26px;
+    font-family:'Bebas Neue',sans-serif;
+    letter-spacing:2px;
+    font-size:15px;
+    border-radius:2px;
+    transition:transform .2s ease, background .2s ease, border-color .2s ease;
+    white-space:nowrap;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn-solid{background:var(--brown);color:#fff;}
+  .btn-solid:hover{background:var(--brown-light);}
+  .btn-dark{background:#000;color:#fff;border:1px solid #2a2622;}
+  .btn-outline{border:1px solid var(--brown);color:var(--cream);}
+  .btn-outline:hover{background:rgba(169,102,47,0.12);}
+  .arrow{transition:transform .2s ease;}
+  .btn:hover .arrow{transform:translateX(4px);}
+
+  /* ===== HEADER ===== */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(12,10,8,0.9);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 40px;
+    max-width:1400px;margin:0 auto;
+  }
+  .brand{display:flex;align-items:center;gap:12px;}
+  .brand img{height:52px;width:52px;}
+  .brand-text{font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:15px;line-height:1.3;}
+  .brand-text b{display:block;font-size:19px;color:var(--brown-light);}
+  .navlinks{display:flex;gap:34px;list-style:none;}
+  .navlinks a{
+    font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:14px;
+    color:var(--text-dim);
+    position:relative;padding-bottom:4px;
+  }
+  .navlinks a:hover, .navlinks a.active{color:var(--cream);}
+  .navlinks a.active::after{
+    content:"";position:absolute;left:0;bottom:0;width:100%;height:2px;background:var(--brown);
+  }
+  .nav-right{display:flex;align-items:center;gap:22px;}
+  .socials{display:flex;gap:10px;}
+  .socials a{
+    width:34px;height:34px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    background:#1c1815;border:1px solid var(--line);
+    font-size:14px;
+  }
+  .socials a:hover{background:var(--brown);}
+  .burger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;}
+  .burger span{width:26px;height:2px;background:var(--cream);}
+
+  /* ===== HERO ===== */
+  .hero{
+    position:relative;
+    min-height:640px;
+    padding:70px 0 90px;
+    overflow:hidden;
+    display:flex;align-items:center;
+  }
+  .hero-media{position:absolute;inset:0;z-index:0;background:#0c0a08;}
+  .hero-media video, .hero-media img{
+    width:100%;height:100%;object-fit:cover;object-position:center 58%;
+    position:absolute;inset:0;
+  }
+  .hero-media::after{
+    content:"";position:absolute;inset:0;
+    background:
+      radial-gradient(ellipse at 20% 15%, rgba(169,102,47,0.22), transparent 55%),
+      linear-gradient(180deg, rgba(12,10,8,0.44) 0%, rgba(12,10,8,0.58) 55%, rgba(12,10,8,0.74) 100%);
+  }
+  .hero::before{
+    content:"";position:absolute;inset:0;z-index:1;
+    background-image:url('assets/img/tex_grunge.png');
+    background-size:900px;opacity:0.08;mix-blend-mode:screen;pointer-events:none;
+  }
+  .hero-play{
+    position:absolute;bottom:26px;right:26px;z-index:3;
+    width:50px;height:50px;border-radius:50%;
+    background:rgba(12,10,8,0.65);border:1px solid rgba(255,255,255,0.4);
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;font-size:16px;cursor:pointer;backdrop-filter:blur(4px);
+  }
+  .hero-play.hidden{display:none;}
+  .hero-grid{
+    max-width:1400px;margin:0 auto;padding:0 40px;width:100%;
+    display:block;
+    position:relative;z-index:2;
+  }
+  .hero-copy .eyebrow{margin-bottom:14px;display:block;}
+  .hero-copy h1{
+    font-size:clamp(56px,7.2vw,104px);
+    line-height:0.95;
+    color:var(--cream);
+    text-shadow:0 6px 30px rgba(0,0,0,0.5);
+  }
+  .hero-copy p{
+    margin-top:26px;color:var(--text-dim);font-size:18px;line-height:1.7;max-width:420px;
+  }
+  .hero-btns{display:flex;gap:16px;margin-top:36px;flex-wrap:wrap;}
+
+  /* ===== SERVICES ===== */
+  .services{padding:100px 0 70px;position:relative;}
+  .section-head{margin-bottom:46px;}
+  .section-head .eyebrow{margin-bottom:10px;display:block;}
+  .section-head h2{font-size:clamp(28px,3.4vw,42px);}
+  .svc-grid{
+    display:grid;grid-template-columns:repeat(5,1fr);gap:18px;
+  }
+  .svc-card{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:34px 20px;
+    text-align:center;
+    transition:transform .25s ease, border-color .25s ease, background .25s ease;
+  }
+  .svc-card:hover{transform:translateY(-6px);border-color:var(--brown);background:var(--panel2);}
+  .svc-card img{height:56px;width:auto;margin:0 auto 22px;filter:drop-shadow(0 2px 6px rgba(0,0,0,0.4));}
+  .svc-card h3{
+    font-family:'Bebas Neue',sans-serif;letter-spacing:1.5px;font-size:17px;margin-bottom:8px;
+  }
+  .svc-card p{font-size:12.5px;color:var(--text-dim);line-height:1.6;}
+
+  /* ===== ABOUT ===== */
+  .about{padding:100px 0;}
+  .about-grid{
+    display:grid;grid-template-columns:0.95fr 1.05fr;gap:60px;align-items:center;
+  }
+  .about-photos{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .about-photos .tall{grid-row:span 2;}
+  .about-photos img{border-radius:6px;width:100%;height:100%;object-fit:cover;box-shadow:0 20px 40px rgba(0,0,0,0.4);}
+  .quote-card{
+    background:var(--panel);border:1px solid var(--line);border-radius:6px;
+    display:flex;align-items:center;justify-content:center;text-align:center;
+    padding:28px 14px;min-height:150px;
+  }
+  .quote-card .display{font-size:22px;line-height:1.25;color:var(--brown-light);}
+  .about-copy .eyebrow{display:block;margin-bottom:10px;}
+  .about-copy h2{font-size:clamp(26px,3.2vw,38px);line-height:1.12;margin-bottom:20px;}
+  .about-copy p{color:var(--text-dim);font-size:15px;line-height:1.8;margin-bottom:14px;max-width:480px;}
+  .stats{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:34px 0 34px;
+  }
+  .stat{text-align:center;}
+  .stat img{height:38px;width:auto;margin:0 auto 12px;}
+  .stat span{
+    display:block;font-family:'Bebas Neue',sans-serif;letter-spacing:1px;font-size:12px;
+    color:var(--text-dim);line-height:1.4;
+  }
+
+  /* ===== GALLERY ===== */
+  .gallery{padding:40px 0 100px;}
+  .gallery-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:34px;flex-wrap:wrap;gap:18px;}
+  .gal-grid{
+    display:grid;grid-template-columns:repeat(5,1fr);gap:14px;
+  }
+  .gal-grid a{
+    display:block;border-radius:6px;overflow:hidden;aspect-ratio:3/4;position:relative;
+  }
+  .gal-grid img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease, filter .4s ease;filter:grayscale(15%);}
+  .gal-grid a:hover img{transform:scale(1.08);filter:grayscale(0%);}
+
+  /* ===== TEAM ===== */
+  .team{padding:40px 0 110px;}
+  .team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;margin-top:46px;}
+  .team-card{
+    background:var(--panel);border:1px solid var(--line);border-radius:8px;overflow:hidden;
+    transition:transform .3s ease, border-color .3s ease;
+    padding:32px 20px 26px;
+  }
+  .team-card:hover{transform:translateY(-6px);border-color:var(--brown);}
+  .team-card .photo{
+    width:170px;height:170px;border-radius:50%;overflow:hidden;margin:0 auto;
+    border:3px solid var(--brown);box-shadow:0 12px 26px rgba(0,0,0,0.45);
+  }
+  .team-card .photo img{width:100%;height:100%;object-fit:cover;object-position:top center;}
+  .team-card .info{padding:22px 4px 0;text-align:center;}
+  .team-card h3{font-family:'Bebas Neue',sans-serif;letter-spacing:1.5px;font-size:21px;color:var(--brown-light);}
+  .team-card .role{font-size:11.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-dim);margin-top:4px;}
+
+  /* ===== CTA STRIP ===== */
+  .cta-strip{
+    position:relative;
+    background:linear-gradient(120deg, #1a1310, #0c0a08 60%);
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    padding:70px 0;
+  }
+  .cta-strip .wrap{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:24px;}
+  .cta-strip h2{font-size:clamp(26px,3.4vw,40px);line-height:1.1;}
+  .cta-strip h2 span{color:var(--brown-light);}
+
+  /* ===== FOOTER ===== */
+  footer{padding:80px 0 30px;}
+  .foot-grid{
+    display:grid;grid-template-columns:1.1fr 1fr 1fr 1.1fr;gap:40px;margin-bottom:60px;
+  }
+  .foot-brand{display:flex;align-items:center;gap:14px;margin-bottom:18px;}
+  .foot-brand img{height:60px;width:60px;}
+  .foot-brand-text{font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:15px;line-height:1.3;}
+  .foot-brand-text b{display:block;font-size:19px;color:var(--brown-light);}
+  footer h4{
+    font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:14px;
+    color:var(--brown-light);margin-bottom:18px;text-transform:uppercase;
+  }
+  footer p, footer address{font-size:13.5px;color:var(--text-dim);line-height:2;font-style:normal;}
+  .map-box{border-radius:6px;overflow:hidden;border:1px solid var(--line);height:120px;background:#1c1815;display:flex;align-items:center;justify-content:center;color:var(--text-dim);font-size:12px;}
+  .foot-bottom{
+    border-top:1px solid var(--line);padding-top:26px;
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;
+    font-size:12px;color:#6b625a;
+  }
+
+  @media(max-width:1080px){
+    .hero-grid{grid-template-columns:1fr;}
+    .hero-badge{margin:0 auto;}
+    .hero-photo{order:-1;}
+    .svc-grid{grid-template-columns:repeat(3,1fr);}
+    .about-grid{grid-template-columns:1fr;}
+    .gal-grid{grid-template-columns:repeat(3,1fr);}
+    .team-grid{grid-template-columns:repeat(2,1fr);}
+    .foot-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media(max-width:720px){
+    .navlinks{display:none;}
+    .burger{display:flex;}
+    .wrap{padding:0 22px;}
+    .nav{padding:14px 22px;}
+    .svc-grid{grid-template-columns:repeat(2,1fr);}
+    .gal-grid{grid-template-columns:repeat(2,1fr);}
+    .team-grid{grid-template-columns:1fr;}
+    .foot-grid{grid-template-columns:1fr;}
+    .stats{grid-template-columns:repeat(2,1fr);}
+    .cta-strip .wrap{flex-direction:column;align-items:flex-start;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <div class="brand">
+      <img src="assets/img/logo.png" alt="Snail Shop Barbearia">
+      <div class="brand-text">SINCE 2009<b>SNAIL SHOP</b>BARBEARIA</div>
+    </div>
+    <ul class="navlinks">
+      <li><a href="#inicio" class="active">INÍCIO</a></li>
+      <li><a href="#sobre">SOBRE NÓS</a></li>
+      <li><a href="#servicos">SERVIÇOS</a></li>
+      <li><a href="#galeria">GALERIA</a></li>
+      <li><a href="#artistas">ARTISTAS</a></li>
+      <li><a href="#contactos">CONTACTOS</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="#contactos" class="btn btn-outline">MARCAR HORÁRIO</a>
+      <div class="socials">
+        <a href="#" aria-label="Instagram">📷</a>
+        <a href="#" aria-label="Facebook">f</a>
+      </div>
+      <button class="burger" aria-label="menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<section class="hero" id="inicio">
+  <div class="hero-media">
+    <video id="heroVideo" poster="assets/img/hero_video_poster.jpg" autoplay muted loop playsinline preload="auto">
+      <source src="assets/video/hero.mp4" type="video/mp4">
+    </video>
+  </div>
+  <button class="hero-play hidden" id="heroPlayBtn" aria-label="Reproduzir vídeo">▶</button>
+  <div class="hero-grid">
+    <div class="hero-copy">
+      <span class="eyebrow">Desde 2009</span>
+      <h1 class="display">SNAIL SHOP<br>BARBEARIA</h1>
+      <p>Os melhores barbeiros e tatuadores em Quarteira.</p>
+      <div class="hero-btns">
+        <a href="#contactos" class="btn btn-solid">MARCAR HORÁRIO <span class="arrow">→</span></a>
+        <a href="#servicos" class="btn btn-outline">VER SERVIÇOS</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="servicos">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">O que fazemos</span>
+      <h2 class="display">OS NOSSOS SERVIÇOS</h2>
+    </div>
+    <div class="svc-grid">
+      <div class="svc-card">
+        <img src="assets/icons/scissors.png" alt="Corte de Cabelo">
+        <h3>CORTE DE CABELO</h3>
+        <p>Cortes modernos e clássicos sempre ao teu estilo.</p>
+      </div>
+      <div class="svc-card">
+        <img src="assets/icons/beard.png" alt="Barba">
+        <h3>BARBA</h3>
+        <p>Aparar, desenhar e cuidar. O detalhe faz a diferença.</p>
+      </div>
+      <div class="svc-card">
+        <img src="assets/icons/clipper.png" alt="Degradê">
+        <h3>DEGRADÊ</h3>
+        <p>Degradês precisos com acabamento impecável.</p>
+      </div>
+      <div class="svc-card">
+        <img src="assets/icons/tattoo.png" alt="Tatuagens">
+        <h3>TATUAGENS</h3>
+        <p>Tatuagens personalizadas com qualidade e arte.</p>
+      </div>
+      <div class="svc-card">
+        <img src="assets/icons/eyebrow.png" alt="Sobrancelhas">
+        <h3>SOBRANCELHAS</h3>
+        <p>Design de sobrancelhas para um look perfeito.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="sobre">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="about-photos">
+        <img class="tall" src="assets/img/about_shave.jpg" alt="Barba à navalha na Snail Shop">
+        <img src="assets/img/about_chairs_ceiling.jpg" alt="Detalhe das cadeiras Snail Shop">
+        <div class="quote-card"><span class="display">TRUST<br>THE PROCESS</span></div>
+      </div>
+      <div class="about-copy">
+        <span class="eyebrow">Sobre Nós</span>
+        <h2 class="display">MAIS DO QUE UMA BARBEARIA, UM ESTILO DE VIDA.</h2>
+        <p>Na Snail Shop Barbearia, não é só sobre o corte. É sobre confiança, atitude e identidade.</p>
+        <p>Desde 2009, temos vindo a elevar o padrão da barbearia em Quarteira, com uma equipa apaixonada pelo que faz.</p>
+        <div class="stats">
+          <div class="stat"><img src="assets/icons/experience.png" alt=""><span>ANOS DE<br>EXPERIÊNCIA</span></div>
+          <div class="stat"><img src="assets/icons/team.png" alt=""><span>EQUIPA<br>ESPECIALIZADA</span></div>
+          <div class="stat"><img src="assets/icons/products.png" alt=""><span>PRODUTOS<br>PREMIUM</span></div>
+          <div class="stat"><img src="assets/icons/chair.png" alt=""><span>AMBIENTE<br>ÚNICO</span></div>
+        </div>
+        <a href="#artistas" class="btn btn-dark">CONHECE A NOSSA HISTÓRIA <span class="arrow">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="gallery" id="galeria">
+  <div class="wrap">
+    <div class="gallery-head">
+      <div>
+        <span class="eyebrow">Galeria</span>
+        <h2 class="display">O NOSSO TRABALHO</h2>
+      </div>
+      <a href="#galeria" class="btn btn-outline">VER TODAS AS FOTOS</a>
+    </div>
+    <div class="gal-grid">
+      <a href="#"><img src="assets/img/gallery_mohawk.jpg" alt="Corte moicano"></a>
+      <a href="#"><img src="assets/img/gallery_haircut_side.jpg" alt="Corte degradê perfil"></a>
+      <a href="#"><img src="assets/img/gallery_fade_profile.jpg" alt="Degradê perfil"></a>
+      <a href="#"><img src="assets/img/gallery_tattoo_neck.jpg" alt="Tatuagem pescoço"></a>
+      <a href="#"><img src="assets/img/gallery_tattoo_artist.jpg" alt="Tatuagem facial e pescoço"></a>
+      <a href="#"><img src="assets/img/team_1.jpg" alt="Corte finalizado Snail Shop"></a>
+    </div>
+  </div>
+</section>
+
+<section class="team" id="artistas">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Artistas</span>
+      <h2 class="display">QUEM CUIDA DO TEU ESTILO</h2>
+    </div>
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="photo"><img src="assets/img/team_4.jpg" alt="Barbeiro Snail Shop"></div>
+        <div class="info"><h3>MARCUS BILLY</h3><span class="role">Barbeiro</span></div>
+      </div>
+      <div class="team-card">
+        <div class="photo"><img src="assets/img/team_2.jpg" alt="Barbeiro Snail Shop"></div>
+        <div class="info"><h3>RODRIGO ANDRADE</h3><span class="role">Barbeiro</span></div>
+      </div>
+      <div class="team-card">
+        <div class="photo"><img src="assets/img/team_3.jpg" alt="Barbeiro Snail Shop"></div>
+        <div class="info"><h3>BRUNO COMBADÃO</h3><span class="role">Barbeiro</span></div>
+      </div>
+      <div class="team-card">
+        <div class="photo"><img src="assets/img/team_5.jpg" alt="Barbeiro Snail Shop"></div>
+        <div class="info"><h3>IGOR FANTASIA</h3><span class="role">Barbeiro & Tatuador</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-strip">
+  <div class="wrap">
+    <h2 class="display">O TEU ESTILO,<br><span>A NOSSA ARTE.</span></h2>
+    <a href="#contactos" class="btn btn-solid">MARCAR HORÁRIO <span class="arrow">→</span></a>
+  </div>
+</section>
+
+<footer id="contactos">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">
+          <img src="assets/img/logo.png" alt="Snail Shop Barbearia">
+          <div class="foot-brand-text">SINCE 2009<b>SNAIL SHOP</b>BARBEARIA</div>
+        </div>
+      </div>
+      <div>
+        <h4>Contactos</h4>
+        <p>📞 914 262 404<br>✉️ geral@snailshop.pt<br>📷 @snailshop.barbearia<br>f /snailshopbarbearia</p>
+      </div>
+      <div>
+        <h4>Horário</h4>
+        <p>SEGUNDA – QUARTA<br>09:00 – 19:00<br><br>QUINTA<br>09:00 – 20:00<br><br>SEXTA – SÁBADO<br>09:00 – 19:00<br><br>DOMINGO<br>FECHADO</p>
+      </div>
+      <div>
+        <h4>Onde Estamos</h4>
+        <address>R. Manuel Pontes da Horta 7<br>8125-232 Quarteira</address>
+        <div class="map-box" style="margin-top:14px;">Mapa — Quarteira</div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Snail Shop Barbearia. Todos os direitos reservados.</span>
+      <span>Feito por Baybridge Studio</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Site desenhado e desenvolvido por Baybridge Studio (baybridgestudio.com) -->
+
+<script>
+  (function(){
+    var vid = document.getElementById('heroVideo');
+    var btn = document.getElementById('heroPlayBtn');
+    if(!vid) return;
+    var started = false;
+
+    function tryPlay(){
+      if(started) return;
+      var p = vid.play();
+      if(p !== undefined){
+        p.then(function(){
+          started = true;
+          btn.classList.add('hidden');
+        }).catch(function(){
+          btn.classList.remove('hidden');
+        });
+      }
+    }
+
+    tryPlay();
+    ['loadeddata','canplay','canplaythrough'].forEach(function(ev){
+      vid.addEventListener(ev, tryPlay);
+    });
+    document.addEventListener('visibilitychange', function(){
+      if(!document.hidden) tryPlay();
+    });
+    window.addEventListener('load', tryPlay);
+    setTimeout(tryPlay, 400);
+    setTimeout(tryPlay, 1200);
+
+    btn.addEventListener('click', function(){
+      started = true;
+      vid.play();
+      btn.classList.add('hidden');
+    });
+
+    // first user interaction anywhere also unlocks playback, as a bonus on top of the visible button
+    ['click','touchstart','scroll','keydown'].forEach(function(ev){
+      document.addEventListener(ev, tryPlay, {once:true, passive:true});
+    });
+  })();
+</script>
+
+</body>
+</html>
