@@ -92,8 +92,25 @@
     font-size:14px;
   }
   .socials a:hover{background:var(--brown);}
-  .burger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;}
-  .burger span{width:26px;height:2px;background:var(--cream);}
+  .burger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;z-index:60;position:relative;}
+  .burger span{width:26px;height:2px;background:var(--cream);transition:transform .2s ease, opacity .2s ease;}
+  .burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .burger.open span:nth-child(2){opacity:0;}
+  .burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+  .mobile-menu{
+    display:none;flex-direction:column;
+    max-height:0;overflow:hidden;
+    background:rgba(12,10,8,0.98);border-top:1px solid var(--line);
+    transition:max-height .3s ease;
+  }
+  .mobile-menu.open{max-height:500px;}
+  .mobile-menu a{
+    padding:16px 22px;font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:15px;
+    color:var(--text-dim);border-bottom:1px solid var(--line);
+  }
+  .mobile-menu .mobile-book{
+    margin:16px 22px;border-bottom:none;text-align:center;justify-content:center;
+  }
 
   /* ===== HERO ===== */
   .hero{
@@ -269,8 +286,15 @@
   @media(max-width:720px){
     .navlinks{display:none;}
     .burger{display:flex;}
+    .nav-right .btn, .nav-right .socials{display:none;}
+    .mobile-menu{display:flex;}
     .wrap{padding:0 22px;}
-    .nav{padding:14px 22px;}
+    .nav{padding:12px 22px;}
+    .brand{gap:10px;}
+    .brand img{height:40px;width:40px;}
+    .brand-text{font-size:0;line-height:1;}
+    .brand-text .since-line, .brand-text .barbearia-line{display:none;}
+    .brand-text b{display:block;font-size:16px;letter-spacing:1.5px;}
     .svc-grid{grid-template-columns:repeat(2,1fr);}
     .gal-grid{grid-template-columns:repeat(2,1fr);}
     .team-grid{grid-template-columns:1fr;}
@@ -286,7 +310,7 @@
   <div class="nav">
     <div class="brand">
       <img src="assets/img/logo.png" alt="Snail Shop Barbearia">
-      <div class="brand-text">SINCE 2009<b>SNAIL SHOP</b>BARBEARIA</div>
+      <div class="brand-text"><span class="since-line">SINCE 2009</span><b>SNAIL SHOP</b><span class="barbearia-line">BARBEARIA</span></div>
     </div>
     <ul class="navlinks">
       <li><a href="#inicio" class="active">INÍCIO</a></li>
@@ -302,8 +326,17 @@
         <a href="#" aria-label="Instagram">📷</a>
         <a href="#" aria-label="Facebook">f</a>
       </div>
-      <button class="burger" aria-label="menu"><span></span><span></span><span></span></button>
+      <button class="burger" id="burgerBtn" aria-label="menu" aria-expanded="false"><span></span><span></span><span></span></button>
     </div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#inicio">INÍCIO</a>
+    <a href="#sobre">SOBRE NÓS</a>
+    <a href="#servicos">SERVIÇOS</a>
+    <a href="#galeria">GALERIA</a>
+    <a href="#artistas">ARTISTAS</a>
+    <a href="#contactos">CONTACTOS</a>
+    <a href="#contactos" class="btn btn-solid mobile-book">MARCAR HORÁRIO</a>
   </div>
 </header>
 
@@ -513,6 +546,24 @@
     // first user interaction anywhere also unlocks playback, as a bonus on top of the visible button
     ['click','touchstart','scroll','keydown'].forEach(function(ev){
       document.addEventListener(ev, tryPlay, {once:true, passive:true});
+    });
+  })();
+
+  (function(){
+    var burger = document.getElementById('burgerBtn');
+    var menu = document.getElementById('mobileMenu');
+    if(!burger || !menu) return;
+    burger.addEventListener('click', function(){
+      var open = menu.classList.toggle('open');
+      burger.classList.toggle('open', open);
+      burger.setAttribute('aria-expanded', open);
+    });
+    menu.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', function(){
+        menu.classList.remove('open');
+        burger.classList.remove('open');
+        burger.setAttribute('aria-expanded', 'false');
+      });
     });
   })();
 </script>
